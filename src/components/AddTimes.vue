@@ -161,6 +161,7 @@ export default {
           this.snackbar = true;
           (this.start = null), (this.end = null), (this.date = null);
           this.$store.dispatch('setTotal')
+          this.$store.dispatch('setDates')
         } else {
           this.text =
             'Er is een fout opgetreden bij het toevoegen van de uren.';

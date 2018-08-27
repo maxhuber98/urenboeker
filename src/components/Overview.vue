@@ -213,7 +213,8 @@ export default {
 				total: null
 			},
 			dateModal: false,
-			date: '2018/7/01',
+			// ToDo: current date
+			date: '2018/8/01',
 			loading: false,
 			dates: {
 				min: null,
@@ -249,6 +250,7 @@ export default {
 				if (resp.data.status === "success") {
 					this.deletedText = 'Uren zijn succesvol verwijderd!'
 					this.$store.dispatch('setTotal')
+					this.$store.dispatch('setDates')
 				} else {
 					this.deletedText = 'Er is een fout opgetreden bij het verwijderen van de uren.'
 				}
