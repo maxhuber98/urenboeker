@@ -7,7 +7,6 @@ export default {
   props: ['chartData'],
   computed: {
     getDays() {
-      console.log(this.chartData)
       return this.stripData()
     }
   },

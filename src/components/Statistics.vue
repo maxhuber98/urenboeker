@@ -1,8 +1,14 @@
 <template>
   <v-container>
-    <v-layout>
-      <!-- <h1>Statistieken</h1> -->
-      <day-chart :styles="{height: '500px', width: '100%', position: 'relative'}" v-if="days" :chart-data="days"></day-chart>
+    <v-layout row wrap>
+      <h1>Statistieken</h1>
+      <v-flex xs12>
+        <day-chart :styles="{height: '500px', width: '100%', position: 'relative'}" v-if="days" :chart-data="days"></day-chart>
+      </v-flex>
+      <v-spacer></v-spacer>
+      <v-flex xs12>
+        <month-chart :style="{height: '500px', width: '100%', position: 'relative'}" v-if="months" :data="months"></month-chart>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -10,9 +16,10 @@
 <script>
 import axios from 'axios'
 import DayChart from '../charts/DayChart'
+import MonthChart from '../charts/MonthChart'
 
 export default {
-  components: { DayChart },
+  components: { DayChart, MonthChart },
   mounted() {
     this.$store.commit('SET_LAYOUT', 'app-layout')
     this.getData()
