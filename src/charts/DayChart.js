@@ -1,6 +1,9 @@
 import {
   Pie
 } from 'vue-chartjs'
+import {
+  randomColor
+} from '../helpers/colors'
 
 export default {
   extends: Pie,
@@ -17,7 +20,6 @@ export default {
       days.forEach((item) => {
         rtrn.push(this.chartData[item])
       })
-
       return rtrn
     }
   },
@@ -25,7 +27,15 @@ export default {
     this.renderChart({
       labels: ['maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag', 'zondag'],
       datasets: [{
-        backgroundColor: '#f87979',
+        backgroundColor: [
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor()
+        ],
         data: this.getDays
       }],
     }, {

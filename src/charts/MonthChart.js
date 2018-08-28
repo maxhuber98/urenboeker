@@ -1,16 +1,21 @@
-import { Bar } from 'vue-chartjs';
+import {
+  Bar
+} from 'vue-chartjs'
+import {
+  randomColor
+} from '../helpers/colors'
 
 export default {
   extends: Bar,
   props: ['data'],
   computed: {
     getMonths() {
-      return this.stripData();
+      return this.stripData()
     }
   },
   methods: {
     stripData() {
-      const rtrn = [];
+      const rtrn = []
       const months = [
         'januari',
         'februari',
@@ -24,42 +29,50 @@ export default {
         'oktoboer',
         'novermber',
         'december'
-      ];
+      ]
       months.forEach(item => {
-        rtrn.push(this.data[item]);
-      });
-      return rtrn;
+        rtrn.push(this.data[item])
+      })
+      return rtrn
     }
   },
   mounted() {
-    this.renderChart(
-      {
-        labels: [
-          'januari',
-          'februari',
-          'maart',
-          'april',
-          'mei',
-          'juni',
-          'juli',
-          'augustus',
-          'september',
-          'oktoboer',
-          'novermber',
-          'december'
+    this.renderChart({
+      labels: [
+        'januari',
+        'februari',
+        'maart',
+        'april',
+        'mei',
+        'juni',
+        'juli',
+        'augustus',
+        'september',
+        'oktoboer',
+        'novermber',
+        'december'
+      ],
+      datasets: [{
+        label: 'uren',
+        backgroundColor: [
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor(),
+          randomColor()
         ],
-        datasets: [
-          {
-            label: 'uren',
-            backgroundColor: '#f87979',
-            data: this.getMonths
-          }
-        ]
-      },
-      {
-        resposive: true,
-        maintainAspectRatio: false
-      }
-    );
+        data: this.getMonths
+      }]
+    }, {
+      resposive: true,
+      maintainAspectRatio: false
+    })
   }
-};
+}
