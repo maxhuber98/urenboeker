@@ -72,7 +72,10 @@ export default {
       }]
     }, {
       resposive: true,
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      }
     })
   }
 }
