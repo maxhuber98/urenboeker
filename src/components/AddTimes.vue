@@ -155,7 +155,7 @@ export default {
           End: this.end,
           Date: this.date
         };
-        axios.post('http://localhost:5000/api/times', data).then(data => {
+        axios.post(process.env.ROOT_API + '/times', data).then(data => {
           if (data.data.status === 'success') {
             this.text = 'Uren zijn succesvol toegevoegd!'
             this.$refs.form.reset()

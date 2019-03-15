@@ -239,7 +239,7 @@ export default {
       const item = this.selectedDeleteItem
       const index = this.uren.indexOf(item);
       // Delete item in db
-      axios.post('http://localhost:5000/api/times/Delete?id=' + item.id).then(resp => {
+      axios.post(process.env.ROOT_API + '/times/Delete?id=' + item.id).then(resp => {
         if (resp.data.status === "success") {
           this.deletedText = 'Uren zijn succesvol verwijderd!'
           this.$store.dispatch('setTotal')
@@ -269,7 +269,7 @@ export default {
           End: this.editedItem.end,
           Date: date
         };
-        axios.put('http://localhost:5000/api/times', test).then(resp => {
+        axios.put(process.env.ROOT_API + '/times', test).then(resp => {
           if (resp.data.status === 'success') {
             this.updatedText = 'Uren zijn succesvol bijgewerkt!'
             this.$store.dispatch('setTotal')
@@ -295,7 +295,7 @@ export default {
     getData() {
       this.loading = true
       axios
-        .get('http://localhost:5000/api/times/byDate?val=' + this.date)
+        .get(process.env.ROOT_API + '/times/byDate?val=' + this.date)
         .then(resp => {
           this.uren = resp.data
           this.loading = false

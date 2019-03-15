@@ -21,11 +21,14 @@ const getters = {
 }
 
 const actions = {
-  authRequest({ commit, dispatch }, user) {
+  authRequest({
+    commit,
+    dispatch
+  }, user) {
     return new Promise((resolve, reject) => {
       commit('authRequest')
       axios
-        .post('http://localhost:5000/api/auth/login', user)
+        .post(process.env.ROOT_API + '/auth/login', user)
         .then(resp => {
           const token = resp.data.auth_token
           localStorage.setItem('access_token', token)
@@ -45,7 +48,10 @@ const actions = {
     })
   },
 
-  authLogout({ commit, dispatch }) {
+  authLogout({
+    commit,
+    dispatch
+  }) {
     return new Promise((resolve, reject) => {
       commit('authLogout')
       localStorage.removeItem('access_token')
@@ -70,7 +76,8 @@ const mutations = {
   },
 
   authLogout(state) {
-    ;(state.token = ''), (state.username = '')
+    ;
+    (state.token = ''), (state.username = '')
   }
 }
 

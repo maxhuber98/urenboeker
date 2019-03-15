@@ -30,16 +30,22 @@ const getters = {
 }
 
 const actions = {
-  setOverview({ commit, dispatch }, month) {
+  setOverview({
+    commit,
+    dispatch
+  }, month) {
     return new Promise((resolve, reject) => {
       commit('setOverview')
       resolve()
     })
   },
-  setDates({ commit, dispatch }) {
+  setDates({
+    commit,
+    dispatch
+  }) {
     return new Promise((resolve, reject) => {
       axios
-        .get('http://localhost:5000/api/times/GetMinMax')
+        .get(process.env.ROOT_API + '/times/GetMinMax')
         .then(resp => {
           const data = resp.data
           commit('setDates', data)
@@ -51,11 +57,14 @@ const actions = {
         })
     })
   },
-  setTotal({ commit, dispatch }) {
+  setTotal({
+    commit,
+    dispatch
+  }) {
     return new Promise((resolve, reject) => {
       const date = moment().format('YYYY/MM/DD')
       axios
-        .get('http://localhost:5000/api/times/GetTotal?date=' + date)
+        .get(process.env.ROOT_API + '/times/GetTotal?date=' + date)
         .then(resp => {
           const total = resp.data
           const obj = {

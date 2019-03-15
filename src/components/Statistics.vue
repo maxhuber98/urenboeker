@@ -44,10 +44,10 @@ export default {
   },
   methods: {
     getData() {
-      axios.get('http://localhost:5000/api/stats/totalpermonth?year=' + this.year).then(resp => {
+      axios.get(process.env.ROOT_API + '/stats/totalpermonth?year=' + this.year).then(resp => {
         this.months = resp.data
       })
-      axios.get('http://localhost:5000/api/stats/daysperyear?year=' + this.year).then(data => {
+      axios.get(process.env.ROOT_API + '/stats/daysperyear?year=' + this.year).then(data => {
         this.days = data.data
       })
     }
