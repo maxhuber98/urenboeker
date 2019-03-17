@@ -13,23 +13,23 @@ import { mapState, mapMutations, mapGetters } from 'vuex'
 import axios from 'axios'
 
 export default {
-	name: 'App',
-	computed: {
-		...mapState(['layout'])
-	},
-	components: {
-		'app-layout': AppLayout,
-		'simple-layout': SimpleLayout
-	},
-	created() {
-		axios.interceptors.response.use(undefined, (err) => {
-			return new Promise((resolve, reject) => {
-				if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-					this.$store.dispatch('authLogout')
-				}
-				throw err
-			})
-		})
-	}
+  name: 'App',
+  computed: {
+    ...mapState(['layout'])
+  },
+  components: {
+    'app-layout': AppLayout,
+    'simple-layout': SimpleLayout
+  },
+  created() {
+    axios.interceptors.response.use(undefined, (err) => {
+      return new Promise((resolve, reject) => {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          this.$store.dispatch('authLogout')
+        }
+        throw err
+      })
+    })
+  }
 }
 </script>
