@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <v-container fluid fill-height>
+      <v-container fluid>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
@@ -17,7 +17,7 @@
                     label="Email"
                     type="text"
                     v-model="username"
-                    :rules="textRules"
+                    :rules="emailRules"
                     required
                   ></v-text-field>
                   <v-text-field
@@ -62,8 +62,22 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="success" @click="register">Registreren</v-btn>
+                <v-layout>
+                  <v-flex x5>
+                    <router-link
+                      block
+                      :to="'/'"
+                      class="pl-0"
+                      style="color: white; text-decoration: none"
+                    >
+                      <v-btn block color="primary">Login</v-btn>
+                    </router-link>
+                  </v-flex>
+                  <v-spacer></v-spacer>
+                  <v-flex xs5 class="mr-2">
+                    <v-btn block color="success" class="mr-1" @click="register">Registreren</v-btn>
+                  </v-flex>
+                </v-layout>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -92,6 +106,10 @@ export default {
     error: null,
     snackbar: false,
     text: '',
+    emailRules: [
+      v => !!v || 'E-mail is verplicht',
+      v => /.+@.+/.test(v) || 'Geen geldig E-mail ingevuld'
+    ],
     textRules: [
       v => !!v || "Veld mag niet leeg zijn"
     ],
@@ -119,7 +137,7 @@ export default {
           }
 
           axios
-            .post('http://localhost:5000/api/accounts/', model)
+            .post(process.env.ROOT_API + '/accounts/', model)
             .then((data) => {
               if (data.data.status === 'success') {
                 this.snackbar = true
@@ -129,7 +147,9 @@ export default {
                 }, 3500)
               } else {
                 this.snackbar = true
-                this.text = 'Er is een fout opgetreden bij het aanmaken van het account.'
+
+                if (data.data.message === 'DuplicateUserName')
+                  this.text = 'Dit e-mailadres is al geregistreerd!'
               }
             })
         } else {

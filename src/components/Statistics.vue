@@ -5,23 +5,41 @@
       <v-tab :key="2">Per dag</v-tab>
 
       <v-tab-item :key="1">
-        <h1 class="text-xs-center">Statistieken {{ year }}</h1>
         <v-container>
+          <v-layout class="justify-end mb-3">
+            <v-flex xs3 align-center>
+              <v-select
+                class="pt-0"
+                hide-details
+                v-model="year"
+                v-on:input="getData"
+                :items="items"
+              ></v-select>
+            </v-flex>
+          </v-layout>
+
           <v-layout row wrap>
             <v-flex xs12>
-              <day-chart
-                :styles="{height: '500px', width: '100%', position: 'relative'}"
-                v-if="days"
-                :chart-data="days"
-              ></day-chart>
+              <v-card>
+                <v-card-text class="text-xs-center info mb-1">Aantal gewerkte dagen {{ year }}</v-card-text>
+
+                <day-chart
+                  :styles="{height: '500px', width: '100%', position: 'relative'}"
+                  v-if="days"
+                  :chart-data="days"
+                ></day-chart>
+              </v-card>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-flex xs12>
-              <month-chart
-                :style="{height: '500px', width: '100%', position: 'relative'}"
-                v-if="months"
-                :data="months"
-              ></month-chart>
+            <v-flex xs12 class="mt-2">
+              <v-card>
+                <v-card-text class="text-xs-center info mb-1">Aantal gewerkte uren {{ year }}</v-card-text>
+                <month-chart
+                  :style="{height: '500px', width: '100%', position: 'relative'}"
+                  v-if="months"
+                  :data="months"
+                ></month-chart>
+              </v-card>
             </v-flex>
           </v-layout>
         </v-container>
@@ -29,7 +47,17 @@
 
       <v-tab-item :key="2">
         <v-container>
-          <h1 class="text-xs-center">{{ year }}</h1>
+          <v-layout class="justify-end">
+            <v-flex xs3 align-center>
+              <v-select
+                class="pt-0"
+                hide-details
+                v-model="year"
+                v-on:input="getData"
+                :items="items"
+              ></v-select>
+            </v-flex>
+          </v-layout>
           <h2 class="text-xs-center">Totaal gewerkte uren per dag</h2>
           <v-layout>
             <v-flex xs12>
@@ -51,21 +79,20 @@
 import axios from 'axios'
 import DayChart from '../charts/DayChart'
 import MonthChart from '../charts/MonthChart'
-import moment from 'moment'
+import moment, { min } from 'moment'
 
 export default {
   components: { DayChart, MonthChart },
-  mounted() {
-    this.$store.commit('SET_LAYOUT', 'app-layout')
-    this.year = moment().locale("nl").format("YYYY")
-    this.getData()
-  },
   data() {
     return {
       loading: false,
       year: null,
       months: null,
       days: null,
+      dates: {
+        min: null,
+        max: null
+      },
       headers: [
         {
           text: 'Dag',
@@ -76,11 +103,20 @@ export default {
           value: 'value'
         }
       ],
-      times: []
+      times: [],
+      items: [],
     }
+  },
+  mounted() {
+    this.$store.commit('SET_LAYOUT', 'app-layout')
+    this.year = moment().locale("nl").format("YYYY")
+    this.getData()
+    this.getYearsBasedOnMinMax()
   },
   methods: {
     getData() {
+      this.months = false
+      this.days = false
       axios.get(process.env.ROOT_API + '/stats/totalpermonth?year=' + this.year).then(resp => {
         this.months = resp.data
       })
@@ -124,6 +160,19 @@ export default {
       }
 
       this.times = timesArray
+    },
+    getYearsBasedOnMinMax() {
+      this.dates = this.$store.getters.getDates
+      let years = []
+
+      var minYear = moment(this.dates.min).format('YYYY')
+      var currentYear = moment().locale("nl").format('YYYY')
+      var diff = currentYear - minYear
+
+      for (var i = diff; i >= 0; i--) {
+        var year = moment().locale("nl").subtract(i, 'years').format('YYYY')
+        this.items.push(year)
+      }
     }
   }
 }

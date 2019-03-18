@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  ROOT_API: '"http://www.site.com/api"'
+  ROOT_API: '"https://webapiauthcool.azurewebsites.net/api"'
 }

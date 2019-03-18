@@ -2,10 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
+import Forgotpassword from '@/components/Forgotpassword'
+import Passwordrecovery from '@/components/Passwordrecovery'
 import Dashboard from '@/components/Dashboard'
 import AddTimes from '@/components/AddTimes'
 import Overview from '@/components/Overview'
 import Statistics from '@/components/Statistics'
+import Export from '@/components/Export'
 import Logout from '@/components/Logout'
 import store from '@/store'
 
@@ -41,6 +44,18 @@ export default new Router({
       beforeEnter: ifNotAuthenticated
     },
     {
+      path: '/forgotpassword',
+      name: 'Forgotpassword',
+      component: Forgotpassword,
+      beforeEnter: ifNotAuthenticated
+    },
+    {
+      path: '/passwordrecovery',
+      name: 'Passwordrecovery',
+      component: Passwordrecovery,
+      beforeEnter: ifNotAuthenticated
+    },
+    {
       path: '/home',
       name: 'Dashboard',
       component: Dashboard,
@@ -62,6 +77,12 @@ export default new Router({
       path: '/statistics',
       name: 'Statistics',
       component: Statistics,
+      beforeEnter: ifAuthenticated
+    },
+    {
+      path: '/export',
+      name: 'Export',
+      component: Export,
       beforeEnter: ifAuthenticated
     },
     {

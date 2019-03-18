@@ -23,7 +23,7 @@
                     id="password"
                     prepend-icon="lock"
                     name="Password"
-                    label="Password"
+                    label="Wachtwoord"
                     type="password"
                     v-model="credentials.password"
                     required
@@ -36,10 +36,17 @@
                 </router-link>
                 <v-btn color="primary" @click="login">Login</v-btn>
               </v-card-actions>
+              <v-card-actions class="justify-end">
+                <router-link :to="'forgotpassword'">Wachtwoord vergeten</router-link>
+              </v-card-actions>
             </v-card>
           </v-flex>
         </v-layout>
       </v-container>
+      <v-snackbar :timeout="3500" :bottom="true" v-model="snackbar">
+        {{ message }}
+        <v-btn flat color="pink" @click.native="snackbar = false">Close</v-btn>
+      </v-snackbar>
     </v-content>
   </v-app>
 </template>
@@ -50,10 +57,12 @@ import { mapState, mapMutations, mapGetters } from 'vuex'
 export default {
   data: () => ({
     drawer: null,
+    snackbar: false,
     credentials: {
       username: '',
       password: ''
-    }
+    },
+    message: ''
   }),
   props: {
     source: String
@@ -70,6 +79,12 @@ export default {
         })
         .then(() => {
           this.$router.push('/home')
+        })
+        .catch(() => {
+          if (this.$store.getters.authStatus === "error") {
+            this.message = "Inloggegevens zijn onjuist!"
+            this.snackbar = true
+          }
         })
     }
   }

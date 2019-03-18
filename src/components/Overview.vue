@@ -5,87 +5,95 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs12 sm6 md4>
-                <v-dialog
-                  ref="date"
-                  v-model="dateModal"
-                  :return-value.sync="editedItem.date"
-                  persistent
-                  lazy
-                  full-width
-                  width="290px"
-                >
+              <v-form ref="form" v-model="valid">
+                <v-flex xs12 sm6 md4>
+                  <v-dialog
+                    ref="date"
+                    v-model="dateModal"
+                    :return-value.sync="editedItem.date"
+                    persistent
+                    lazy
+                    full-width
+                    width="290px"
+                  >
+                    <v-text-field
+                      slot="activator"
+                      v-model="editedItem.date"
+                      label="Datum"
+                      prepend-icon="event"
+                      readonly
+                      :rules="inputRules"
+                      required
+                    ></v-text-field>
+                    <v-date-picker v-model="editedItem.date" :locale="'nl'" scrollable>
+                      <v-spacer></v-spacer>
+                      <v-btn flat color="primary" @click="dateModal = false">Annuleren</v-btn>
+                      <v-btn flat color="primary" @click="$refs.date.save(editedItem.date)">OK</v-btn>
+                    </v-date-picker>
+                  </v-dialog>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-dialog
+                    ref="dialog"
+                    v-model="modal2"
+                    :return-value.sync="editedItem.start"
+                    persistent
+                    lazy
+                    full-width
+                    width="290px"
+                  >
+                    <v-text-field
+                      slot="activator"
+                      v-model="editedItem.start"
+                      label="Begintijd"
+                      prepend-icon="access_time"
+                      readonly
+                      :rules="inputRules"
+                      required
+                    ></v-text-field>
+                    <v-time-picker v-model="editedItem.start" actions>
+                      <v-spacer></v-spacer>
+                      <v-btn flat color="primary" @click="modal2 = false">Annuleren</v-btn>
+                      <v-btn flat color="primary" @click="$refs.dialog.save(editedItem.start)">OK</v-btn>
+                    </v-time-picker>
+                  </v-dialog>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-dialog
+                    ref="end"
+                    v-model="modal3"
+                    :return-value.sync="editedItem.end"
+                    persistent
+                    lazy
+                    full-width
+                    width="290px"
+                  >
+                    <v-text-field
+                      slot="activator"
+                      v-model="editedItem.end"
+                      label="Eindtijd"
+                      prepend-icon="access_time"
+                      readonly
+                      :rules="inputRules"
+                      required
+                    ></v-text-field>
+                    <v-time-picker v-model="editedItem.end" actions>
+                      <v-spacer></v-spacer>
+                      <v-btn flat color="primary" @click="modal3 = false">Annuleren</v-btn>
+                      <v-btn flat color="primary" @click="$refs.end.save(editedItem.end)">OK</v-btn>
+                    </v-time-picker>
+                  </v-dialog>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
                   <v-text-field
-                    slot="activator"
-                    v-model="editedItem.date"
-                    label="Datum"
-                    prepend-icon="event"
+                    v-model="total"
+                    label="Totaal"
+                    prepend-icon="alarm"
+                    :disabled="true"
                     readonly
                   ></v-text-field>
-                  <v-date-picker v-model="editedItem.date" :locale="'nl'" scrollable>
-                    <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="dateModal = false">Annuleren</v-btn>
-                    <v-btn flat color="primary" @click="$refs.date.save(editedItem.date)">OK</v-btn>
-                  </v-date-picker>
-                </v-dialog>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-dialog
-                  ref="dialog"
-                  v-model="modal2"
-                  :return-value.sync="editedItem.start"
-                  persistent
-                  lazy
-                  full-width
-                  width="290px"
-                >
-                  <v-text-field
-                    slot="activator"
-                    v-model="editedItem.start"
-                    label="Begintijd"
-                    prepend-icon="access_time"
-                    readonly
-                  ></v-text-field>
-                  <v-time-picker v-model="editedItem.start" actions>
-                    <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="modal2 = false">Annuleren</v-btn>
-                    <v-btn flat color="primary" @click="$refs.dialog.save(editedItem.start)">OK</v-btn>
-                  </v-time-picker>
-                </v-dialog>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-dialog
-                  ref="end"
-                  v-model="modal3"
-                  :return-value.sync="editedItem.end"
-                  persistent
-                  lazy
-                  full-width
-                  width="290px"
-                >
-                  <v-text-field
-                    slot="activator"
-                    v-model="editedItem.end"
-                    label="Eindtijd"
-                    prepend-icon="access_time"
-                    readonly
-                  ></v-text-field>
-                  <v-time-picker v-model="editedItem.end" actions>
-                    <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="modal3 = false">Annuleren</v-btn>
-                    <v-btn flat color="primary" @click="$refs.end.save(editedItem.end)">OK</v-btn>
-                  </v-time-picker>
-                </v-dialog>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field
-                  v-model="total"
-                  label="Totaal"
-                  prepend-icon="alarm"
-                  :disabled="true"
-                  readonly
-                ></v-text-field>
-              </v-flex>
+                </v-flex>
+              </v-form>
             </v-layout>
           </v-container>
         </v-card-text>
@@ -96,7 +104,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <h1>Uren overzicht</h1>
     <div class="text-xs-center">
       <h2>{{ date | displayDate }}</h2>
     </div>
@@ -176,8 +183,12 @@ export default {
     return {
       dialog: false,
       deleteDialog: false,
+      valid: false,
       modal2: false,
       modal3: false,
+      inputRules: [
+        v => !!v || 'Veld mag niet leeg zijn'
+      ],
       uren: [],
       headers: [
         {
@@ -260,30 +271,33 @@ export default {
       }, 300);
     },
     save() {
-      if (this.editedIndex > -1) {
-        // Update item
-        const date = moment(this.editedItem.date, 'YYYY-MM-DD').format('YYYY/M/DD')
-        const test = {
-          Id: this.editedItem.id,
-          Start: this.editedItem.start,
-          End: this.editedItem.end,
-          Date: date
-        };
-        axios.put(process.env.ROOT_API + '/times', test).then(resp => {
-          if (resp.data.status === 'success') {
-            this.updatedText = 'Uren zijn succesvol bijgewerkt!'
-            this.$store.dispatch('setTotal')
-          } else {
-            this.updatedText = 'Er is een fout opgetreden bij het bijwerken van de uren.'
-          }
-          this.updated = true
-        })
-        this.editedItem.total = this.total
-        Object.assign(this.uren[this.editedIndex], this.editedItem)
-      } else {
-        this.uren.push(this.editedItem)
+      if (this.$refs.form.validate()) {
+        if (this.editedIndex > -1) {
+          // Update item
+          const date = moment(this.editedItem.date, 'YYYY-MM-DD').format('YYYY/M/DD')
+          const test = {
+            Id: this.editedItem.id,
+            Start: this.editedItem.start,
+            End: this.editedItem.end,
+            Date: date
+          };
+          axios.put(process.env.ROOT_API + '/times', test).then(resp => {
+            if (resp.data.status === 'success') {
+              this.updatedText = 'Uren zijn succesvol bijgewerkt!'
+              this.$store.dispatch('setTotal')
+              this.$refs.form.reset()
+            } else {
+              this.updatedText = 'Er is een fout opgetreden bij het bijwerken van de uren.'
+            }
+            this.updated = true
+          })
+          this.editedItem.total = this.total
+          Object.assign(this.uren[this.editedIndex], this.editedItem)
+        } else {
+          this.uren.push(this.editedItem)
+        }
+        this.close();
       }
-      this.close();
     },
     getTimeFromMins(data) {
       var minutes = data % 60
@@ -358,9 +372,15 @@ export default {
       return false
     },
     nextBtn() {
-      const now = moment().format('YYYY-MM')
+      var max = null
+      if (this.dates.max) {
+        max = moment(this.dates.max, 'YYYY-MM-DD').format('YYYY-MM')
+      } else {
+        max = moment().format('YYYY-MM')
+      }
+
       const date = moment(this.date, 'YYYY-MM-DD').format('YYYY-MM')
-      if (now > date)
+      if (max > date)
         return true
       return false
     },
