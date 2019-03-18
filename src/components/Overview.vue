@@ -96,7 +96,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <h1>Uren overzicht</h1>
     <div class="text-xs-center">
       <h2>{{ date | displayDate }}</h2>
     </div>
@@ -358,9 +357,15 @@ export default {
       return false
     },
     nextBtn() {
-      const now = moment().format('YYYY-MM')
+      var max = null
+      if (this.dates.max) {
+        max = moment(this.dates.max, 'YYYY-MM-DD').format('YYYY-MM')
+      } else {
+        max = moment().format('YYYY-MM')
+      }
+
       const date = moment(this.date, 'YYYY-MM-DD').format('YYYY-MM')
-      if (now > date)
+      if (max > date)
         return true
       return false
     },

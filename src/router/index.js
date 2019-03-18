@@ -6,6 +6,7 @@ import Dashboard from '@/components/Dashboard'
 import AddTimes from '@/components/AddTimes'
 import Overview from '@/components/Overview'
 import Statistics from '@/components/Statistics'
+import Export from '@/components/Export'
 import Logout from '@/components/Logout'
 import store from '@/store'
 
@@ -62,6 +63,12 @@ export default new Router({
       path: '/statistics',
       name: 'Statistics',
       component: Statistics,
+      beforeEnter: ifAuthenticated
+    },
+    {
+      path: '/export',
+      name: 'Export',
+      component: Export,
       beforeEnter: ifAuthenticated
     },
     {

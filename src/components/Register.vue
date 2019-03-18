@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <v-container fluid fill-height>
+      <v-container fluid>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
@@ -62,8 +62,22 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="success" @click="register">Registreren</v-btn>
+                <v-layout>
+                  <v-flex x5>
+                    <router-link
+                      block
+                      :to="'/'"
+                      class="pl-0"
+                      style="color: white; text-decoration: none"
+                    >
+                      <v-btn block color="primary">Login</v-btn>
+                    </router-link>
+                  </v-flex>
+                  <v-spacer></v-spacer>
+                  <v-flex xs5 class="mr-2">
+                    <v-btn block color="success" class="mr-1" @click="register">Registreren</v-btn>
+                  </v-flex>
+                </v-layout>
               </v-card-actions>
             </v-card>
           </v-flex>
