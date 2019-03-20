@@ -4,6 +4,7 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
+            <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
                 <v-toolbar-title>Wachtwoord vergeten</v-toolbar-title>
@@ -62,7 +63,24 @@ export default {
         v => !!v || 'Veld is verplicht'
       ],
       message: '',
-      snackbar: false
+      snackbar: false,
+      items: [
+        {
+          text: 'Login',
+          disabled: false,
+          href: '/'
+        },
+        {
+          text: 'Wachtwoord vergeten',
+          disabled: false,
+          href: '#/forgotpassword'
+        },
+        {
+          text: 'Wachtwoord veranderen',
+          disabled: true,
+          href: 'passwordrecovery'
+        }
+      ]
     }
   },
   mounted() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-tabs fixed-tabs color="grey lighten-5" centered>
+    <v-tabs fixed-tabs :class="{color : 'grey lighten-5'}" :dark="darkmode" centered>
       <v-tab :key="1">Algemeen</v-tab>
       <v-tab :key="2">Per dag</v-tab>
 
@@ -80,6 +80,7 @@ import axios from 'axios'
 import DayChart from '../charts/DayChart'
 import MonthChart from '../charts/MonthChart'
 import moment, { min } from 'moment'
+import getDarkMode from '../helpers/general'
 
 export default {
   components: { DayChart, MonthChart },
@@ -105,6 +106,12 @@ export default {
       ],
       times: [],
       items: [],
+      darkmode: false
+    }
+  },
+  computed: {
+    color() {
+      return this.darkmode ? false : true
     }
   },
   mounted() {
@@ -112,6 +119,7 @@ export default {
     this.year = moment().locale("nl").format("YYYY")
     this.getData()
     this.getYearsBasedOnMinMax()
+    this.darkmode = getDarkMode()
   },
   methods: {
     getData() {

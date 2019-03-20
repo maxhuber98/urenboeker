@@ -27,7 +27,7 @@
                     ></v-text-field>
                     <v-date-picker v-model="editedItem.date" :locale="'nl'" scrollable>
                       <v-spacer></v-spacer>
-                      <v-btn flat color="primary" @click="dateModal = false">Annuleren</v-btn>
+                      <v-btn flat color="primary" @click="dateModal = false">Sluiten</v-btn>
                       <v-btn flat color="primary" @click="$refs.date.save(editedItem.date)">OK</v-btn>
                     </v-date-picker>
                   </v-dialog>
@@ -53,7 +53,7 @@
                     ></v-text-field>
                     <v-time-picker v-model="editedItem.start" actions>
                       <v-spacer></v-spacer>
-                      <v-btn flat color="primary" @click="modal2 = false">Annuleren</v-btn>
+                      <v-btn flat color="primary" @click="modal2 = false">Sluiten</v-btn>
                       <v-btn flat color="primary" @click="$refs.dialog.save(editedItem.start)">OK</v-btn>
                     </v-time-picker>
                   </v-dialog>
@@ -79,7 +79,7 @@
                     ></v-text-field>
                     <v-time-picker v-model="editedItem.end" actions>
                       <v-spacer></v-spacer>
-                      <v-btn flat color="primary" @click="modal3 = false">Annuleren</v-btn>
+                      <v-btn flat color="primary" @click="modal3 = false">Sluiten</v-btn>
                       <v-btn flat color="primary" @click="$refs.end.save(editedItem.end)">OK</v-btn>
                     </v-time-picker>
                   </v-dialog>
@@ -99,8 +99,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="close">Sluiten</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="save">Opslaan</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -154,7 +154,7 @@
           <v-card-title class="headline">Weet je zeker dat je de uren wilt verwijderen?</v-card-title>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click.native="deleteDialog = false">Annuleren</v-btn>
+            <v-btn color="blue darken-1" flat @click.native="deleteDialog = false">Sluiten</v-btn>
             <v-btn color="red darken-1" flat @click.native="deleteItem()">Verwijderen</v-btn>
           </v-card-actions>
         </v-card>

@@ -2,8 +2,9 @@
   <v-app>
     <v-content>
       <v-container fluid fill-height>
-        <v-layout align-center justify-center>
+        <v-layout align-center>
           <v-flex xs12 sm8 md4>
+            <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
                 <v-toolbar-title>Wachtwoord vergeten</v-toolbar-title>
@@ -49,6 +50,18 @@ export default {
       ],
       message: '',
       snackbar: false,
+      items: [
+        {
+          text: 'Login',
+          disabled: false,
+          href: '#/'
+        },
+        {
+          text: 'Wachtwoord vergeten',
+          disabled: true,
+          href: 'forgotpassword'
+        }
+      ]
     }
   },
   mounted() {

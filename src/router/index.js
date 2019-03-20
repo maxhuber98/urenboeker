@@ -9,6 +9,7 @@ import AddTimes from '@/components/AddTimes'
 import Overview from '@/components/Overview'
 import Statistics from '@/components/Statistics'
 import Export from '@/components/Export'
+import Settings from '@/components/Settings'
 import Logout from '@/components/Logout'
 import store from '@/store'
 
@@ -83,6 +84,12 @@ export default new Router({
       path: '/export',
       name: 'Export',
       component: Export,
+      beforeEnter: ifAuthenticated
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings,
       beforeEnter: ifAuthenticated
     },
     {

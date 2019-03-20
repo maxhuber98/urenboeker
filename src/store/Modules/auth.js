@@ -76,7 +76,6 @@ const mutations = {
   },
 
   authLogout(state) {
-    ;
     (state.token = ''), (state.username = '')
   }
 }

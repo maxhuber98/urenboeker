@@ -4,6 +4,7 @@
       <v-container fluid>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
+            <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
                 <v-toolbar-title>Registreren</v-toolbar-title>
@@ -26,7 +27,7 @@
                     name="Password"
                     label="Wachtwoord"
                     type="password"
-                    hint="Minimaal 8 karakters, 1 hoofdletter"
+                    hint="Minimaal 6 karakters"
                     v-model="password"
                     :rules="passwordRules"
                     required
@@ -70,7 +71,7 @@
                       class="pl-0"
                       style="color: white; text-decoration: none"
                     >
-                      <v-btn block color="primary">Login</v-btn>
+                      <v-btn block color="primary">Inloggen</v-btn>
                     </router-link>
                   </v-flex>
                   <v-spacer></v-spacer>
@@ -115,7 +116,19 @@ export default {
     ],
     passwordRules: [
       v => !!v || "Veld mag niet leeg zijn",
-      v => v.length >= 6 || "Wachtwoord moet tussen 6 en 12 karakters bevatten"
+      v => v.length >= 6 || "Wachtwoord moet tenminste 6 karakters bevatten"
+    ],
+    items: [
+      {
+        text: 'Login',
+        disabled: false,
+        href: '#/'
+      },
+      {
+        text: 'Registreren',
+        disabled: true,
+        href: '#/register'
+      }
     ]
   }),
   props: {

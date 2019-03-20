@@ -31,10 +31,14 @@
                 </v-form>
               </v-card-text>
               <v-card-actions class="justify-center">
-                <router-link :to="'register'" style="color: white; text-decoration: none">
-                  <v-btn color="primary">Register</v-btn>
+                <router-link
+                  :to="'register'"
+                  style="color: white; text-decoration: none"
+                  class="mr-1"
+                >
+                  <v-btn color="primary">Registreren</v-btn>
                 </router-link>
-                <v-btn color="primary" @click="login">Login</v-btn>
+                <v-btn color="primary" class="ml-1" @click="login">Inloggen</v-btn>
               </v-card-actions>
               <v-card-actions class="justify-end">
                 <router-link :to="'forgotpassword'">Wachtwoord vergeten</router-link>

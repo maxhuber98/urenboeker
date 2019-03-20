@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :dark="nightMode">
     <v-navigation-drawer
       persistent
       :mini-variant="miniVariant"
@@ -31,11 +31,14 @@
 </template>
 
 <script>
+import { getDarkMode } from '../helpers/general'
+
 export default {
   data() {
     return {
       clipped: false,
       drawer: false,
+      nightMode: false,
       items: [
         {
           icon: 'home',
@@ -63,6 +66,11 @@ export default {
           action: 'export'
         },
         {
+          icon: 'settings',
+          title: 'Instellingen',
+          action: 'settings'
+        },
+        {
           icon: 'settings_power',
           title: 'Uitloggen',
           action: 'logout'
@@ -73,6 +81,9 @@ export default {
       rightDrawer: false,
       title: 'Urenboeker'
     }
+  },
+  mounted() {
+    this.nightMode = getDarkMode()
   },
   name: 'App'
 }
